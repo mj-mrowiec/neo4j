@@ -20,3 +20,8 @@ RETURN a.name
 MATCH (:Person)-[r:REVIEWED]->(m:Movie)
 WHERE toLower(r.summary) CONTAINS 'fun'
 RETURN  m.title as Movie, r.summary as Review, r.rating as Rating
+
+// one type of rel over the other one
+MATCH (a:Person)-[:PRODUCED]->(m:Movie)
+WHERE NOT ((a)-[:DIRECTED]->(:Movie))
+RETURN a.name, m.title
