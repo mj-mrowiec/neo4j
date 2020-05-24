@@ -84,3 +84,8 @@ WITH p, collect(m) AS movies
 WHERE size(movies)  > 5
 WITH p, movies UNWIND movies AS movie
 RETURN p.name, movie.title
+
+// SET MATCH (m:Movie)
+WHERE m.released < 2010
+SET m:OlderMovie
+RETURN DISTINCT labels(m)
