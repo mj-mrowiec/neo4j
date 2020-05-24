@@ -85,7 +85,8 @@ WHERE size(movies)  > 5
 WITH p, movies UNWIND movies AS movie
 RETURN p.name, movie.title
 
-// SET MATCH (m:Movie)
+// SET 
+MATCH (m:Movie)
 WHERE m.released < 2010
 SET m:OlderMovie
 RETURN DISTINCT labels(m)
@@ -94,3 +95,14 @@ RETURN DISTINCT labels(m)
 MATCH (m:Movie)
 WHERE m.title = 'Forrest Gump'
 SET m.lengthInMinutes = null
+
+MATCH (p:Person)
+WHERE p.name = 'Robin Wright'
+REMOVE p.birthPlace
+
+// Create relationship
+MATCH (m:Movie)
+WHERE m.title = 'Forrest Gump'
+MATCH (p:Person)
+WHERE p.name = 'Tom Hanks' OR p.name = 'Robin Wright' OR p.name = 'Gary Sinise'
+CREATE (p)-[:ACTED_IN]->(m)
