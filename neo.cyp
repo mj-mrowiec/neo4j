@@ -1,3 +1,6 @@
+// cwiczenia z neo
+:play 4.0-intro-neo4j-exercises
+
 // To clean the base
 MATCH (n) DETACH DELETE n;
 
@@ -64,3 +67,20 @@ WITH m, size((:Person)-[:DIRECTED]->(m)) AS directors
 WHERE directors >= 2
 OPTIONAL MATCH (p:Person)-[:REVIEWED]->(m)
 RETURN  m.title, p.name
+
+// map
+MATCH (a:Person)-[:ACTED_IN]->(m:Movie)
+WHERE a.name = 'Tom Hanks'
+RETURN  m {.title, .released}
+
+// date calculation
+MATCH (a:Person)-[:ACTED_IN]->(m:Movie)
+WHERE a.name = 'Tom Hanks'
+RETURN  m.title, m.released, date().year  - m.released as yearsAgoReleased, m.released  - a.born AS `age of Tom`
+
+// Unwind
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WITH p, collect(m) AS movies
+WHERE size(movies)  > 5
+WITH p, movies UNWIND movies AS movie
+RETURN p.name, movie.title
