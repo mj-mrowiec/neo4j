@@ -89,3 +89,8 @@ RETURN p.name, movie.title
 WHERE m.released < 2010
 SET m:OlderMovie
 RETURN DISTINCT labels(m)
+
+// Remove property
+MATCH (m:Movie)
+WHERE m.title = 'Forrest Gump'
+SET m.lengthInMinutes = null
