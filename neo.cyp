@@ -147,3 +147,6 @@ MATCH (p:Person), (m:Movie)
 WHERE p.name IN ['Tom Hanks','Gary Sinise', 'Robin Wright']
       AND m.title = 'Forrest Gump'
 MERGE (p)-[:ACTED_IN]->(m)
+
+// Create Constrant
+CREATE CONSTRAINT PersonNameUniqueConstraint ON (p:Person) ASSERT p.name IS UNIQUE
