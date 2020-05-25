@@ -136,3 +136,8 @@ RETURN m
 MATCH (p:Person {name: 'Robert Zemeckis'})--()
 WHERE NOT EXISTS (p.born)
 DETACH DELETE p
+
+// Create relationship
+MATCH (p:Person), (m:Movie)
+WHERE p.name = 'Robert Zemeckis' AND m.title = 'Forrest Gump'
+MERGE (p)-[:DIRECTED]->(m)
