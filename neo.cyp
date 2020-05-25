@@ -126,3 +126,13 @@ REMOVE rel.roles
 MERGE (m:Movie {title:'Forrest Gump'})
 ON CREATE SET m.released = 1994
 RETURN m
+
+MERGE (m:Movie {title: 'Forrest Gump'})
+ON CREATE SET m.released = 1994
+ON MATCH SET m.tagline = "Life is like a box of chocolates...you never know what you're gonna get."
+RETURN m
+
+// Delete node plus relationships
+MATCH (p:Person {name: 'Robert Zemeckis'})--()
+WHERE NOT EXISTS (p.born)
+DETACH DELETE p
