@@ -121,3 +121,8 @@ END
 MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
 WHERE m.title = 'Forrest Gump'
 REMOVE rel.roles
+
+// CREATE node
+MERGE (m:Movie {title:'Forrest Gump'})
+ON CREATE SET m.released = 1994
+RETURN m
