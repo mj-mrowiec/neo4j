@@ -141,3 +141,9 @@ DETACH DELETE p
 MATCH (p:Person), (m:Movie)
 WHERE p.name = 'Robert Zemeckis' AND m.title = 'Forrest Gump'
 MERGE (p)-[:DIRECTED]->(m)
+
+// Multiple relationship
+MATCH (p:Person), (m:Movie)
+WHERE p.name IN ['Tom Hanks','Gary Sinise', 'Robin Wright']
+      AND m.title = 'Forrest Gump'
+MERGE (p)-[:ACTED_IN]->(m)
