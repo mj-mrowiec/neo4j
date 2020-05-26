@@ -161,3 +161,6 @@ CREATE CONSTRAINT MovieTitleReleasedConstraint ON (m:Movie) ASSERT (m.title, m.r
 MATCH (n1)-[r1:NEXT]-(n2)
 WITH count(r1) as count_rel, n
 CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
+
+// Create Index
+CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
