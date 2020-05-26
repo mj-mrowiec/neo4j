@@ -167,3 +167,10 @@ CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
 
 // Add param
 :param year => 2000
+:params {year: 20, rating:40}
+
+// show query plan
+EXPLAIN MATCH (r:Person)-[rel:REVIEWED]->(m:Movie)<-[:ACTED_IN]-(a:Person)
+WHERE m.released = $year AND
+      rel.rating > $ratingValue
+RETURN  DISTINCT r.name, m.title, m.released, rel.rating, collect(a.name)
