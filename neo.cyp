@@ -174,3 +174,11 @@ EXPLAIN MATCH (r:Person)-[rel:REVIEWED]->(m:Movie)<-[:ACTED_IN]-(a:Person)
 WHERE m.released = $year AND
       rel.rating > $ratingValue
 RETURN  DISTINCT r.name, m.title, m.released, rel.rating, collect(a.name)
+
+// load data with headers
+LOAD CSV WITH HEADERS
+FROM 'http://data.neo4j.com/v4.0-intro-neo4j/actors.csv'
+AS line
+MERGE (actor:Person {name: line.name})
+  ON CREATE SET actor.born = toInteger(trim(line.birthYear)), actor.actorId = line.id
+  ON MATCH SET actor.actorId = line.id
