@@ -151,5 +151,13 @@ MERGE (p)-[:ACTED_IN]->(m)
 // Create Constrant
 CREATE CONSTRAINT PersonNameUniqueConstraint ON (p:Person) ASSERT p.name IS UNIQUE
 
+// Constraint on relationship
+CREATE CONSTRAINT ActedInRolesExistConstraint ON ()-[r:ACTED_IN]-() ASSERT exists(r.roles)
+
 // Create Node Key
 CREATE CONSTRAINT MovieTitleReleasedConstraint ON (m:Movie) ASSERT (m.title, m.released) IS NODE KEY
+
+// Create weight relationship
+MATCH (n1)-[r1:NEXT]-(n2)
+WITH count(r1) as count_rel, n
+CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
