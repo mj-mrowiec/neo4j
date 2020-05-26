@@ -164,3 +164,6 @@ CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
 
 // Create Index
 CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
+
+// Add param
+:param year => 2000
