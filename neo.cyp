@@ -1,6 +1,7 @@
 // cwiczenia z neo
 :play 4.0-intro-neo4j-exercises
 
+
 // To clean the base
 MATCH (n) DETACH DELETE n;
 
@@ -182,3 +183,18 @@ AS line
 MERGE (actor:Person {name: line.name})
   ON CREATE SET actor.born = toInteger(trim(line.birthYear)), actor.actorId = line.id
   ON MATCH SET actor.actorId = line.id
+
+LOAD CSV WITH HEADERS
+FROM 'http://data.neo4j.com/v4.0-intro-neo4j/movies.csv'
+AS line
+MERGE (m:Movie {title: line.title})
+ON CREATE
+  SET m.released = toInteger(trim(line.year)),
+      m.movieId = line.id,
+      m.tagline = line.tagLine
+
+// Delimiter
+LOAD CSV WITH HEADERS
+FROM 'http://data.neo4j.com/v4.0-intro-neo4j/actor-roles.csv'
+AS line FIELDTERMINATOR ';'
+RETURN line.personId, line.movieId, line.Role
