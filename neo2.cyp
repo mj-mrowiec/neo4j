@@ -1,15 +1,24 @@
-// People that ated and directed the movie
+// People that acted and directed the movie
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)<-[:DIRECTED]-(p)
+RETURN p, m
 
 // Hoops
+[:Follows*3]
 
 // Optional Match that person is director of that movie
 // + name of the actor starts with Tom
+OPTIONAL MATCH
 
 // title of the movie and distinct list of the actors
+collect(DISTINCT m.title)
 
 // only movies with five and more actors
+WITH collect(p.name) as a
+WHERE a>5
 
 // Map of values based on the movie 
+MATCH (m:Movie)
+RETURN m {.title .rating}
 
 // Unwind the list of movies under one actor whe the number of movies 
 // higher than 5
