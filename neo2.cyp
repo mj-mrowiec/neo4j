@@ -28,6 +28,7 @@ WITH p, collect(m) as mlist
 WHERE size(mlist) < 5
 WITH p, mlist UNWIND mlist as x
 RETURN p.name, x.title
+
 // Set new labels to the movies older than 2010 OlderMovie
 
 
@@ -57,3 +58,11 @@ RETURN p.name, x.title
 
 
 // load csv file
+LOAD CSV WITH HEADERS
+FROM 'urls'
+AS line
+
+MERGE (actor:Person {name: line.username})
+ ON CREATE SET ... properties
+ ON MATCH SET Idvalues
+ 
