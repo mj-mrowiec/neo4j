@@ -59,10 +59,12 @@ RETURN p.name, x.title
 
 // load csv file
 LOAD CSV WITH HEADERS
-FROM 'urls'
-AS line
+FROM 'url'
+AS Line
+RETURN Line
 
-MERGE (actor:Person {name: line.username})
- ON CREATE SET ... properties
- ON MATCH SET Idvalues
- 
+LOAD CSV WITH HEADERS
+FROM 'urls'
+AS Line FILEDELIMITER ';'
+MERGE (p:Person {name: line.username})
+MERGE (m:Movie {title: line.movietitle})
