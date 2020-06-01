@@ -242,3 +242,13 @@ CALL apoc.periodic.iterate(
        RETURN count(*)  ",
 {batchSize: 500}
 )
+
+// Simple load using APOC
+apoc.import.csv(<nodes>, <relationships>, <config>)
+
+CALL apoc.periodic.iterate(
+"CALL apoc.load.csv('https://data.neo4j.com/v4.0-intro-neo4j/movies2.csv') YIELD map AS row RETURN row",
+"WITH #DECLARE variables#
+",
+{batchSize: 500}
+)
