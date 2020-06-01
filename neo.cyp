@@ -30,6 +30,11 @@ MATCH (a:Person)-[:PRODUCED]->(m:Movie)
 WHERE NOT ((a)-[:DIRECTED]->(:Movie))
 RETURN a.name, m.title
 
+// connection to the movie plus other relationships
+MATCH (p:Person)-[rel]-(m:Movie)
+WHERE m.title = 'Forrest Gump'
+RETURN p, rel, m
+
 // Double relations relations
 MATCH (a1:Person)-[:ACTED_IN]->(m:Movie)<-[:ACTED_IN]-(a2:Person)
 WHERE exists( (a2)-[:DIRECTED]->(m) )
