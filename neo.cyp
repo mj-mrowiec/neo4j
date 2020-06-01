@@ -125,6 +125,7 @@ CASE p.name
 END
 
 // Remove
+// we do not return anything
 MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
 WHERE m.title = 'Forrest Gump'
 REMOVE rel.roles
