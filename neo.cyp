@@ -213,3 +213,32 @@ AS line FIELDTERMINATOR ';'
 MATCH (movie:Movie { movieId: line.movieId })
 MATCH (person:Person { actorId: line.personId })
 MERGE (person)-[:ACTED_IN { roles: split(line.Role,',')}]->(movie)
+
+
+// APOC - show all instructions
+CALL dbms.procedures()
+YIELD name WHERE name STARTS WITH "apoc"
+RETURN name
+
+// Batch processing
+CALL apoc.periodic.iterate(
+"CALL apoc.load.csv('https://data.neo4j.com/v4.0-intro-neo4j/movies2.csv' ) YIELD map AS row RETURN row",
+"WITH row.movieId as movieId, row.title AS title, row.genres AS genres, toInteger(row.releaseYear) AS releaseYear, toFloat(row.avgVote) AS avgVote,
+ collect({id: row.personId, name:row.name, born: toInteger(row.birthYear), died: toInteger(row.deathYear),personType: row.personType, roles: split(coalesce(row.characters,''),':')}) AS people
+ MERGE (m:Movie {id:movieId})
+    ON CREATE SET m.title=title, m.avgVote=avgVote,
+       m.releaseYear=releaseYear, m.genres=split(genres,':')
+ WITH *
+ UNWIND people AS person
+ MERGE (p:Person {id: person.id})
+    ON CREATE SET p.name = person.name, p.born = person.born, p.died = person.died
+ WITH  m, person, p
+ CALL apoc.do.when(person.personType = 'ACTOR',
+      'MERGE (p)-[:ACTED_IN {roles: person.roles}]->(m)
+                 ON CREATE SET p:Actor',
+      'MERGE (p)-[:DIRECTED]->(m)
+          ON CREATE SET p:Director',
+      {m:m, p:p, person:person}) YIELD value AS value
+       RETURN count(*)  ",
+{batchSize: 500}
+)
