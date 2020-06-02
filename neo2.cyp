@@ -26,7 +26,10 @@ RETURN m {.title, .released}
 
 // Unwind the list of movies under one actor whe the number of movies 
 // higher than 5
-
+MATCH (p:Person)-[rel:ACCTED_IN]->(m:Movie)
+WITH m, collect(DISTINCT p) as pele
+WITH m, UNWiND pele as p
+RETURN m.title, p.name
 
 
 // Set new labels to the movies older than 2010 OlderMovie
