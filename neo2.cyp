@@ -33,7 +33,10 @@ RETURN m.title, p.name
 
 
 // Set new labels to the movies older than 2010 OlderMovie
-
+MATCH (m:Movie)
+WHERE m.released < 2010
+SET m:OlderMovie
+RETURN s
 
 // Remove birthPlace property from the person Robin Wright
 
