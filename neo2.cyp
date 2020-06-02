@@ -1,5 +1,5 @@
 // People that acted and directed the movie
-
+(p:Oerson)-[rel:ACCTED_IN]->(m:Movie)
 
 // Hoops
 
