@@ -143,6 +143,10 @@ MERGE (m:Movie {title:'Forrest Gump'})
 ON CREATE SET m.released = 1994
 RETURN m
 
+// MERGE (m:Movie {title:'Forest Gump'})
+// ON CREATE SET m.released = 1994
+// RETURN m
+
 MERGE (m:Movie {title: 'Forrest Gump'})
 ON CREATE SET m.released = 1994
 ON MATCH SET m.tagline = "Life is like a box of chocolates...you never know what you're gonna get."
@@ -177,6 +181,8 @@ CREATE CONSTRAINT MovieTitleReleasedConstraint ON (m:Movie) ASSERT (m.title, m.r
 MATCH (n1)-[r1:NEXT]-(n2)
 WITH count(r1) as count_rel, n
 CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
+
+// CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
 
 // Create Index
 CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
