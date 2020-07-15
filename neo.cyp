@@ -84,6 +84,7 @@ RETURN  m {.title, .released}
 MATCH (a:Person)-[:ACTED_IN]->(m:Movie)
 WHERE a.name = 'Tom Hanks'
 RETURN  m.title, m.released, date().year  - m.released as yearsAgoReleased, m.released  - a.born AS `age of Tom`
+// RETURN m.title, m.relesed, date().year - m.released as yearsAgoReleased, m.rekeased - a.born AS 'age of Tom'
 
 // Unwind
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
