@@ -1,4 +1,5 @@
 // cwiczenia z neo
+// te cwiczenia sa z neo4j dla wersji 4
 :play 4.0-intro-neo4j-exercises
 
 
