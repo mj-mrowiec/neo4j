@@ -259,3 +259,5 @@ CALL apoc.periodic.iterate(
 // NODE ---(COMPANY)---
 // NODE ---(ENITYT)---
 // NODE ---(EMPTY)---
+
+// Relationships
