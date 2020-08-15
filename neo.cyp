@@ -252,3 +252,10 @@ CALL apoc.periodic.iterate(
 ",
 {batchSize: 500}
 )
+
+
+// Working with simple data
+// NODE ---(BANK)---
+// NODE ---(COMPANY)---
+// NODE ---(ENITYT)---
+// NODE ---(EMPTY)---
