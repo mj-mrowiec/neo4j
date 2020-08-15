@@ -1,4 +1,5 @@
 // cwiczenia z neo
+// te cwiczenia sa z neo4j dla wersji 4
 :play 4.0-intro-neo4j-exercises
 
 
@@ -83,6 +84,7 @@ RETURN  m {.title, .released}
 MATCH (a:Person)-[:ACTED_IN]->(m:Movie)
 WHERE a.name = 'Tom Hanks'
 RETURN  m.title, m.released, date().year  - m.released as yearsAgoReleased, m.released  - a.born AS `age of Tom`
+// RETURN m.title, m.relesed, date().year - m.released as yearsAgoReleased, m.rekeased - a.born AS 'age of Tom'
 
 // Unwind
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
@@ -113,6 +115,12 @@ MATCH (p:Person)
 WHERE p.name = 'Tom Hanks' OR p.name = 'Robin Wright' OR p.name = 'Gary Sinise'
 CREATE (p)-[:ACTED_IN]->(m)
 
+// MATCH (m:Movie)
+// WHERE m.title = 'Forest Gump'
+// MATCH (p:Person)
+// WHERE p.name = 'Tom Hanks' OR p.name = 'Robin Wright' OR p.name = 'Gary Sinise'
+// CREATE (p)-[:ACTED_IN]->(m)
+
 // Setting roles
 // set statement must be first
 MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
@@ -134,6 +142,10 @@ REMOVE rel.roles
 MERGE (m:Movie {title:'Forrest Gump'})
 ON CREATE SET m.released = 1994
 RETURN m
+
+// MERGE (m:Movie {title:'Forest Gump'})
+// ON CREATE SET m.released = 1994
+// RETURN m
 
 MERGE (m:Movie {title: 'Forrest Gump'})
 ON CREATE SET m.released = 1994
@@ -169,6 +181,8 @@ CREATE CONSTRAINT MovieTitleReleasedConstraint ON (m:Movie) ASSERT (m.title, m.r
 MATCH (n1)-[r1:NEXT]-(n2)
 WITH count(r1) as count_rel, n
 CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
+
+// CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
 
 // Create Index
 CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
