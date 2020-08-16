@@ -270,6 +270,8 @@ CALL apoc.periodic.iterate(
 
 // Working with simple data
 // NODE ---(BANK)---
+MATCH (b:BANK {name:'Alfa Bank'})-[rel]-(c)
+RETURN *
 // NODE ---(COMPANY)---
 // NODE ---(ENITYT)---
 // NODE ---(EMPTY)---
