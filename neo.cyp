@@ -183,7 +183,7 @@ WITH count(r1) as count_rel, n
 CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
 
 // CREATE (n1)-[:WEIGHT {weight: count_rel}]->(n2)
-
+{}
 // Create Index
 CREATE INDEX PersonBornIndex FOR (p:Person) ON (p.born)
 
@@ -273,6 +273,9 @@ CALL apoc.periodic.iterate(
 MATCH (b:BANK {name:'Alfa Bank'})-[rel]-(c)
 RETURN *
 // NODE ---(COMPANY)---
+MATCH (c: COMPANY)-[:OWNED]-(c2)
+WHERE c.name = 'STAR GMBH'
+RETURN *
 // NODE ---(ENITYT)---
 // NODE ---(EMPTY)---
 
