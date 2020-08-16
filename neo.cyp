@@ -277,6 +277,9 @@ MATCH (c: COMPANY)-[:OWNED]-(c2)
 WHERE c.name ends with 'STAR GMBH'
 RETURN *
 // NODE ---(ENITYT)---
+MATCH (a)-[rel:RECIEVED]-(b)
+WITH collect(rel.trx) as t
+RETURN count(distinct t) as c
 // NODE ---(EMPTY)---
 
 // Relationships
