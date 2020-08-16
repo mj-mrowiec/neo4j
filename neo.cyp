@@ -279,6 +279,7 @@ RETURN *
 // NODE ---(ENITYT)---
 MATCH (a)-[rel:RECIEVED]-(b)
 WITH collect(rel.trx) as t
+WITH a, t UNWIND t AS tx
 RETURN count(distinct t) as c
 // NODE ---(EMPTY)---
 
