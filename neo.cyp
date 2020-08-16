@@ -274,7 +274,7 @@ MATCH (b:BANK {name:'Alfa Bank'})-[rel]-(c)
 RETURN *
 // NODE ---(COMPANY)---
 MATCH (c: COMPANY)-[:OWNED]-(c2)
-WHERE c.name = 'STAR GMBH'
+WHERE c.name ends with 'STAR GMBH'
 RETURN *
 // NODE ---(ENITYT)---
 // NODE ---(EMPTY)---
