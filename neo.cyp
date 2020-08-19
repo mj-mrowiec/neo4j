@@ -285,11 +285,6 @@ RETURN count(distinct t) as c
 
 
 // Unwind
-MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
-WITH p, collect(m) AS movies
-WHERE size(movies)  > 5
-WITH p, movies UNWIND movies AS movie
-RETURN p.name, movie.title
 
 MATCH (c:Car)-[:OWNDED]-(p:Person)
 WITH p, collect(c) AS cars
