@@ -282,3 +282,16 @@ WITH collect(rel.trx) as t
 WITH a, t UNWIND t AS tx
 RETURN count(distinct t) as c
 // NODE ---(EMPTY)---
+
+
+// Unwind
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WITH p, collect(m) AS movies
+WHERE size(movies)  > 5
+WITH p, movies UNWIND movies AS movie
+RETURN p.name, movie.title
+
+MATCH (c:Car)-[:OWNDED]-(p:Person)
+WITH p, collect(c) AS cars
+WITH p, cars UNWIND cars AS cars
+RETURN *
