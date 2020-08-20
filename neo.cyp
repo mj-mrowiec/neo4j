@@ -2,7 +2,6 @@
 // te cwiczenia sa z neo4j dla wersji 4
 :play 4.0-intro-neo4j-exercises
 
-
 // To clean the base
 MATCH (n) DETACH DELETE n;
 
@@ -228,7 +227,6 @@ MATCH (movie:Movie { movieId: line.movieId })
 MATCH (person:Person { actorId: line.personId })
 MERGE (person)-[:ACTED_IN { roles: split(line.Role,',')}]->(movie)
 
-
 // APOC - show all instructions
 CALL dbms.procedures()
 YIELD name WHERE name STARTS WITH "apoc"
@@ -266,7 +264,6 @@ CALL apoc.periodic.iterate(
 ",
 {batchSize: 500}
 )
-
 
 // Working with simple data
 // NODE ---(BANK)---
