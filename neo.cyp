@@ -288,12 +288,3 @@ WITH p, collect(c) AS cars
 WITH p, cars UNWIND cars AS cars
 RETURN *
 
-// Create relationship
-MATCH (p:Person), (m:Movie)
-WHERE p.name = 'Robert Zemeckis' AND m.title = 'Forrest Gump'
-MERGE (p)-[:DIRECTED]->(m)
-
-// Create relationship
-MATCH (b:Bank), (b2:Bank)
-WHERE b.name = 'Comera' AND b2.income > 8bn
-RETURN *  
