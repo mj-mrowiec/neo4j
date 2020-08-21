@@ -288,3 +288,11 @@ WITH p, collect(c) AS cars
 WITH p, cars UNWIND cars AS cars
 RETURN *
 
+// #hoops away
+MATCH (p1:Person)-[:FOLLOWS*3]-(p2:Person)
+WHERE p1.name = 'James Thompson'
+RETURN p1, p2
+
+MATCH (p:Person)-[:FOLLOWS*5]-(w:Willa)
+WHERE p.name = "Something"
+RETURN *
