@@ -290,15 +290,4 @@ RETURN *
 
 
 
-// Create Constrant
-CREATE CONSTRAINT CompanyNameUniqueConstraint ON (c:Company) ASSERT c.name IS UNIQUE
 
-// name starts with
-MATCH (c:Company)-[:OWNED_BY]->(:Company)
-WHERE c.name STARTS WITH 'KASSE'
-RETURN c.name
-
-// name starts with
-MATCH (b:Bank)-[:OWNED_BY]->(:Bank)
-WHERE b.name STARTS WITH 'KASSE'
-RETURN b.name
