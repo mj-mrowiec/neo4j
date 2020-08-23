@@ -289,11 +289,9 @@ WITH p, cars UNWIND cars AS cars
 RETURN *
 
 
-// exists
-MATCH (a:Person)-[:ACTED_IN]->(:Movie)
-WHERE exists(a.birn)
-RETURN a.name
-
+MATCH (c:Company)-[:OWNED]->(:Company)
+WHERE exists(c.name)
+RETURN c.name
 // contains
 MATCH (:Person)-[r:REVIEWED]->(m:Movie)
 WHERE toLower(r.summary) CONTAINS 'fun'
