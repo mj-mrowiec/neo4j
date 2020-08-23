@@ -289,13 +289,14 @@ WITH p, cars UNWIND cars AS cars
 RETURN *
 
 
-MATCH (c:Company)-[:OWNED]->(:Company)
-WHERE exists(c.name)
-RETURN c.name
 // contains
 MATCH (:Person)-[r:REVIEWED]->(m:Movie)
 WHERE toLower(r.summary) CONTAINS 'fun'
 RETURN  m.title as Movie, r.summary as Review, r.rating as Rating
+
+MATCH (:Company)-[r:OWNED]->(b:Bank)
+WHERE toLower(r.accounts) CONTAINS '1524'
+RETURN *
 
 // one type of rel over the other one
 MATCH (a:Person)-[:PRODUCED]->(m:Movie)
