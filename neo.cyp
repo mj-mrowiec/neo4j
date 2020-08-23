@@ -289,5 +289,18 @@ WITH p, cars UNWIND cars AS cars
 RETURN *
 
 
+// exists
+MATCH (a:Person)-[:ACTED_IN]->(:Movie)
+WHERE exists(a.birn)
+RETURN a.name
 
+// contains
+MATCH (:Person)-[r:REVIEWED]->(m:Movie)
+WHERE toLower(r.summary) CONTAINS 'fun'
+RETURN  m.title as Movie, r.summary as Review, r.rating as Rating
+
+// one type of rel over the other one
+MATCH (a:Person)-[:PRODUCED]->(m:Movie)
+WHERE NOT ((a)-[:DIRECTED]->(:Movie))
+RETURN a.name, m.title
 
