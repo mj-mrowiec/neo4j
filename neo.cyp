@@ -288,3 +288,10 @@ WITH p, collect(c) AS cars
 WITH p, cars UNWIND cars AS cars
 RETURN *
 
+// Unwind
+
+MATCH (c:Car)-[:OWNDED]
+WITH p, collect(c) AS cars
+WITH p, cars UNWIND cars AS cars
+RETURN *
+
