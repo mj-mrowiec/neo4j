@@ -282,17 +282,4 @@ RETURN count(distinct t) as c
 
 
 
-// Working with simple data
-// NODE ---(BANK)---
-MATCH (b:BANK {name:'Alfa Bank'})-[rel]-(c)
-RETURN *
-// NODE ---(COMPANY)---
-MATCH (c: COMPANY)-[:OWNED]-(c2)
-WHERE c.name ends with 'STAR GMBH'
-RETURN *
-// NODE ---(ENITYT)---
-MATCH (a)-[rel:RECIEVED]-(b)
-WITH collect(rel.trx) as t
-WITH a, t UNWIND t AS tx
-RETURN count(distinct t) as c
-// NODE ---(EMPTY)---
+
