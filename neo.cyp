@@ -281,17 +281,18 @@ RETURN count(distinct t) as c
 // NODE ---(EMPTY)---
 
 
-// Unwind
 
-MATCH (c:Car)-[:OWNDED]-(p:Person)
-WITH p, collect(c) AS cars
-WITH p, cars UNWIND cars AS cars
+// Working with simple data
+// NODE ---(BANK)---
+MATCH (b:BANK {name:'Alfa Bank'})-[rel]-(c)
 RETURN *
-
-// Unwind
-
-MATCH (c:Car)-[:OWNDED]
-WITH p, collect(c) AS cars
-WITH p, cars UNWIND cars AS cars
+// NODE ---(COMPANY)---
+MATCH (c: COMPANY)-[:OWNED]-(c2)
+WHERE c.name ends with 'STAR GMBH'
 RETURN *
-
+// NODE ---(ENITYT)---
+MATCH (a)-[rel:RECIEVED]-(b)
+WITH collect(rel.trx) as t
+WITH a, t UNWIND t AS tx
+RETURN count(distinct t) as c
+// NODE ---(EMPTY)---
