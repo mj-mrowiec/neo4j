@@ -282,4 +282,22 @@ RETURN count(distinct t) as c
 
 
 
+// Delimiter
+LOAD CSV WITH HEADERS
+FROM 'http://data.neo4j.com/v4.0-intro-neo4j/actor-roles.csv'
+AS line FIELDTERMINATOR ';'
+RETURN line.personId, line.movieId, line.Role
+
+// Creation of relationships
+LOAD CSV WITH HEADERS
+FROM 'http://data.neo4j.com/v4.0-intro-neo4j/actor-roles.csv'
+AS line FIELDTERMINATOR ';'
+MATCH (movie:Movie { movieId: line.movieId })
+MATCH (person:Person { actorId: line.personId })
+MERGE (person)-[:ACTED_IN { roles: split(line.Role,',')}]->(movie)
+
+// APOC - show all instructions
+CALL dbms.procedures()
+YIELD name WHERE name STARTS WITH "apoc"
+RETURN name
 
